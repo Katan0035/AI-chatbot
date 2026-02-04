@@ -63,6 +63,8 @@ def trim_history():
 # ==========================
 st.title("AI klepetalnik")
 st.write("Zdravo! Ime mi je Lenart. Kako vam lahko pomagam?")
+'''
+injekcija CSS ker je streamlit sam nima
 st.markdown(
     """
     <style>
@@ -102,7 +104,7 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True
-)
+#)'''
 
 # ==========================
 # Prikaz zgodovine pogovora
