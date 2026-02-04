@@ -16,11 +16,10 @@ MAX_PAIRS = 5
 # ==========================
 # SISTEMSKA PRAVILA
 # ==========================
-# Tu lahko dodaš pravila, ki jih bo bot vedno upošteval
 SYSTEM_RULES = [
     "Odgovarjaj jasno, slovnično pravilno in vljudno.",
     "Če vprašanje ni povezano z vsebino strani, odgovori: 'Oprosti, za to področje nimam informacij.'",
-    "Če je vprašanje v glede časa ali vremena, odgovori 'Žal ne morem preveriti vremena' ali 'Žal ne morem preveriti časa'"
+    "Če je vprašanje v zvezi s časom ali vremenom, odgovori 'Žal ne morem preveriti vremena' ali 'Žal ne morem preveriti časa'."
 ]
 
 # ==========================
@@ -40,7 +39,6 @@ Martinovanje: Na soboto, 9. novembra, se je na Trgu osvoboditve v Lenartu odvija
 Vsako leto občina Lenart organizira prvomajski pohod na Zavrh. Pohodi so pogosto med 9. in 10. uro. Zbirališče je na Trgu osvoboditve. Na koncu pohoda na Zavrhu se običajno prodaja vina, pijače in druge dobrote. Za motivacijo med pohodom so pogosto muzikantje.
 """
 
-# Združimo sistemska pravila in kontekst
 FULL_SYSTEM_CONTEXT = "\n".join(SYSTEM_RULES) + "\n\n" + CONTEXT
 
 # ==========================
@@ -51,7 +49,9 @@ if "messages" not in st.session_state:
         {"role": "system", "content": FULL_SYSTEM_CONTEXT}
     ]
 
+# ==========================
 # Funkcija za krajšanje zgodovine
+# ==========================
 def trim_history():
     max_len = 1 + 2 * MAX_PAIRS
     while len(st.session_state.messages) > max_len:
@@ -63,48 +63,49 @@ def trim_history():
 st.title("AI klepetalnik")
 st.write("Zdravo! Ime mi je Lenart. Kako vam lahko pomagam?")
 
+# ==========================
+# Prikaz zgodovine pogovora
+# ==========================
+for msg in st.session_state.messages[1:]:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
+
+# ==========================
 # Vnos uporabnika
+# ==========================
 user_input = st.chat_input("Vpiši vprašanje...")
 
 if user_input:
-    # Dodamo sporočilo uporabnika
-    st.session_state.messages.append({"role": "user", "content": user_input})
+    # Dodamo uporabnikovo vprašanje v spomin
+    st.session_state.messages.append(
+        {"role": "user", "content": user_input}
+    )
     trim_history()
-
-    # Takoj prikažemo uporabnikovo sporočilo
-    with st.chat_message("user"):
-        st.markdown(user_input)
 
     try:
         # Klic AI modela
-        odgovor = client.chat.completions.create(
+        response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=st.session_state.messages
         )
 
-        ai_text = odgovor.choices[0].message.content
-        st.session_state.messages.append({"role": "assistant", "content": ai_text})
+        ai_text = response.choices[0].message.content
+
+        # Dodamo odgovor asistenta v spomin
+        st.session_state.messages.append(
+            {"role": "assistant", "content": ai_text}
+        )
         trim_history()
 
-        # Prikaz odgovora AI
-        with st.chat_message("assistant"):
-            st.markdown(ai_text)
+        # Ponovni zagon za čist izris
+        st.rerun()
 
     except Exception as e:
         st.error(f"Napaka: {e}")
-
-# ==========================
-# Prikaz celotne zgodovine (po potrebi)
-# ==========================
-# Prikaz vseh prejšnjih sporočil, če obstajajo
-if len(st.session_state.messages) > 1:
-    for msg in st.session_state.messages[1:]:
-        with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
 
 # ==========================
 # Gumb za reset pogovora
 # ==========================
 if st.button("Počisti pogovor"):
     st.session_state.messages = st.session_state.messages[:1]
-    st.experimental_rerun()
+    st.rerun()
