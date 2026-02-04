@@ -63,6 +63,40 @@ def trim_history():
 # ==========================
 st.title("AI klepetalnik")
 st.write("Zdravo! Ime mi je Lenart. Kako vam lahko pomagam?")
+st.markdown(
+    """
+    
+    <style>
+    .stApp {
+        background-color: white;
+        color:black;
+    }
+    
+    body, p, span, div, label {
+        color: black !important;
+    }
+    
+    h1, h2, h3 {
+        color: black;
+    }
+    
+    button[kind="secondary"],
+    button[kind="primary"],
+    div[data-testid="stButton"] > button {
+        background-color: white !important;
+        color: black !important;
+        border: 1px solid black !important;
+        border-radius: 6px !important;
+    }
+    div[data-testid="stButton"] > button:hover {
+        background-color: white !important;
+        color: black !important;
+        border: 1px solid black !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # ==========================
 # Prikaz zgodovine pogovora
