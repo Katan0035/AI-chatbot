@@ -65,21 +65,22 @@ st.title("AI klepetalnik")
 st.write("Zdravo! Ime mi je Lenart. Kako vam lahko pomagam?")
 st.markdown(
     """
-    
     <style>
+    /* Osnovno ozadje in tekst */
     .stApp {
         background-color: white;
-        color:black;
+        color: black;
     }
-    
+
     body, p, span, div, label {
         color: black !important;
     }
-    
+
     h1, h2, h3 {
         color: black;
     }
-    
+
+    /* Gumbi */
     button[kind="secondary"],
     button[kind="primary"],
     div[data-testid="stButton"] > button {
@@ -88,15 +89,37 @@ st.markdown(
         border: 1px solid black !important;
         border-radius: 6px !important;
     }
+
     div[data-testid="stButton"] > button:hover {
-        background-color: white !important;
+        background-color: #F1E8D9 !important;
+    }
+
+    /* Uporabnikovi chat oblački */
+    div[data-testid="chat-message-user"] {
+        background-color: #F1E8D9;
+        border-radius: 14px;
+        padding: 10px;
+        margin-bottom: 8px;
+    }
+
+    /* AI chat oblački */
+    div[data-testid="chat-message-assistant"] {
+        background-color: #E6D6B8;
+        border-radius: 14px;
+        padding: 10px;
+        margin-bottom: 8px;
+    }
+
+    /* Vnosno polje */
+    textarea {
+        background-color: #FAF7F2 !important;
         color: black !important;
-        border: 1px solid black !important;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 # ==========================
 # Prikaz zgodovine pogovora
