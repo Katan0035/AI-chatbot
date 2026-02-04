@@ -68,7 +68,7 @@ st.markdown(
     <style>
     /* Ozadje celotne aplikacije */
     .stApp {
-        background-color: white;
+        background-color: E6D6B8;
     }
 
     /* Ozadje chat vsebine */
@@ -78,14 +78,14 @@ st.markdown(
 
     /* Uporabnikovi mehurčki */
     div[data-testid="chat-message-user"] {
-        background-color: #F1E8D9;
+        background-color: #black;
         border-radius: 14px;
         padding: 10px;
     }
 
     /* AI mehurčki */
     div[data-testid="chat-message-assistant"] {
-        background-color: #E6D6B8;
+        background-color: #black;
         border-radius: 14px;
         padding: 10px;
     }
@@ -97,7 +97,7 @@ st.markdown(
 
     /* Vnosno polje */
     textarea {
-        background-color: #FAF7F2 !important;
+        background-color: #black !important;
     }
     </style>
     """,
