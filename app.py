@@ -63,6 +63,46 @@ def trim_history():
 # ==========================
 st.title("AI klepetalnik")
 st.write("Zdravo! Ime mi je Lenart. Kako vam lahko pomagam?")
+st.markdown(
+    """
+    <style>
+    /* Ozadje celotne aplikacije */
+    .stApp {
+        background-color: white;
+    }
+
+    /* Ozadje chat vsebine */
+    section.main {
+        background-color: white;
+    }
+
+    /* Uporabnikovi mehurčki */
+    div[data-testid="chat-message-user"] {
+        background-color: #F1E8D9;
+        border-radius: 14px;
+        padding: 10px;
+    }
+
+    /* AI mehurčki */
+    div[data-testid="chat-message-assistant"] {
+        background-color: #E6D6B8;
+        border-radius: 14px;
+        padding: 10px;
+    }
+
+    /* Ikona avatarja */
+    img {
+        filter: sepia(40%) saturate(120%) hue-rotate(5deg);
+    }
+
+    /* Vnosno polje */
+    textarea {
+        background-color: #FAF7F2 !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # ==========================
 # Prikaz zgodovine pogovora
